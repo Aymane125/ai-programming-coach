@@ -1,20 +1,24 @@
 export default function UnderstandingCheck({ onYes, onExplainDifferently, disabled }) {
   return (
-    <div className="flex items-center gap-2 mb-4 ml-1">
-      <span className="text-xs text-gray-500 mr-1">Do you understand this explanation?</span>
+    <div className="flex items-center gap-2 mb-5 ml-10">
+      <span className="text-xs text-[#1B1B1F]/50 mr-1">Did that make sense?</span>
       <button
         onClick={onYes}
         disabled={disabled}
-        className="px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700 hover:bg-green-200 disabled:opacity-40"
+        className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium rounded-full
+                   bg-[#2EC4B6]/10 text-[#0E8C81] hover:bg-[#2EC4B6]/20
+                   disabled:opacity-30 disabled:cursor-not-allowed transition"
       >
-        Yes
+        👍 Yes
       </button>
       <button
         onClick={onExplainDifferently}
         disabled={disabled}
-        className="px-3 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-700 hover:bg-amber-200 disabled:opacity-40"
+        className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium rounded-full
+                   bg-[#FFC857]/20 text-[#8A6400] hover:bg-[#FFC857]/30
+                   disabled:opacity-30 disabled:cursor-not-allowed transition"
       >
-        Explain differently
+        🔄 Explain differently
       </button>
     </div>
   )

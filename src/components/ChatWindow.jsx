@@ -1,18 +1,20 @@
+import { useRef, useEffect } from 'react'
 import MessageBubble from './MessageBubble'
 import UnderstandingCheck from './UnderstandingCheck'
+import TypingIndicator from './TypingIndicator'
 
-export default function ChatWindow({ messages, onYes, onExplainDifferently, checkedMessageIds }) {
+export default function ChatWindow({ messages, onYes, onExplainDifferently, checkedMessageIds, loading }) {
+  const bottomRef = useRef(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, loading])
+
   return (
-    <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-      {messages.length === 0 && (
-        <div className="text-center text-gray-400 text-sm mt-10">
-          Pick a subject above and ask your first question!
-        </div>
-      )}
-
+    <div className="flex-1 overflow-y-auto px-6 py-6 bg-white scroll-smooth">
       {messages.map((msg) => (
-        <div key={msg.id}>
-          <MessageBubble role={msg.role} content={msg.content} />
+        <div key={msg.id} className="mb-6">
+          <MessageBubble role={msg.role} content={msg.content} createdAt={msg.createdAt} />
           {msg.role === 'coach' && (
             <UnderstandingCheck
               disabled={checkedMessageIds.includes(msg.id)}
@@ -22,6 +24,9 @@ export default function ChatWindow({ messages, onYes, onExplainDifferently, chec
           )}
         </div>
       ))}
+
+      {loading && <TypingIndicator />}
+      <div ref={bottomRef} />
     </div>
   )
 }
